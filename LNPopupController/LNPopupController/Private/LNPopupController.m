@@ -938,6 +938,7 @@ static CGFloat __smoothstep(CGFloat a, CGFloat b, CGFloat x)
 	
 //	if(_popupControllerInternalState > LNPopupPresentationStateBarPresented)
 //	{
+    [self.containerController addChildViewController:newContentController];
 		if(oldContentController != nil)
 		{
 			[self.popupContentView.contentView insertSubview:newContentController.view belowSubview:oldContentController.view];
@@ -948,7 +949,11 @@ static CGFloat __smoothstep(CGFloat a, CGFloat b, CGFloat x)
 			[self.popupContentView.contentView sendSubviewToBack:newContentController.view];
 		}
 //	}
-	
+    
+    if ([self.containerController.childViewControllers containsObject:oldContentController]) {
+        [oldContentController removeFromParentViewController];
+    }
+    
 	[self _removeContentControllerFromContentView:oldContentController];
 	
 	if(_popupControllerInternalState > LNPopupPresentationStateBarPresented)
